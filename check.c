@@ -26,6 +26,15 @@ unsigned int mapMaxBlocks[2]={2,2};
 unsigned int relayMap[2][100][50];
 int check()
 {
+	int i,j,k;
+	for(i=0;i<2;i++)
+	{
+		for(j=0;j<100;j++)
+		{
+			for(k=0;k<50;k++)
+			relayMap[i][j][k]=0;
+		}
+	} 
 	/*int i, j;*/
 	change(userMap);
 	/*for (i = 0; i < mapSize[0]; i++) 
@@ -50,7 +59,7 @@ int check()
 
 int compare(unsigned int modal[2][100][50])
 {	
-	int i,j,equal=0;
+	int i,j,k,equal=0;
 	
 	for(i=0;i<mapSize[0];i++)
 		{
@@ -72,7 +81,10 @@ int compare(unsigned int modal[2][100][50])
 		return 1;
 	else
 		return 0;*/
+	
 	return !equal;
+	
+	
 }
 
 
