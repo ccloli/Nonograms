@@ -37,22 +37,24 @@ int check()
 	} 
 	/*int i, j;*/
 	change(userMap);
-	/*for (i = 0; i < mapSize[0]; i++) 
+	printf("\n");
+	for (i = 0; i < mapSize[0]; i++) 
 	{
-		for (j = 0; j < mapMaxBlocks[0]; j++) 
+		for (j = 0; j < mapSize[0]; j++) 
 		{
 			printf("%5d", relayMap[0][i][j]);
 		}
 		printf("\n");
 	}
-	for (i = 0; i < mapSize[0]; i++) 
+	printf("\n");
+	for (i = 0; i < mapSize[1]; i++) 
 	{
-		for (j = 0; j < mapMaxBlocks[1]; j++) 
+		for (j = 0; j < mapSize[1]; j++) 
 		{
 			printf("%5d", relayMap[1][i][j]);
 		}
 		printf("\n");
-	}*/
+	}
 	return compare(relayMap);
 
 }

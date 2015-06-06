@@ -35,7 +35,7 @@ void init() {
 	srand((unsigned int)time(NULL) + (unsigned int)getpid());
 	//int mapId = rand() % length;
 	unsigned int mapId = rand() % (sizeof(maps) / sizeof(maps[0]));
-	mapId = 1; // 开发时以第二张地图进行测试
+	// mapId = 1; 开发时以第二张地图进行测试
 	//printf("%d\n", id);
 	//map = maps[mapId];
 	memcpy(map, maps[mapId], sizeof(maps[mapId]));
@@ -45,8 +45,8 @@ void init() {
 	mapMaxBlocks[1] = getMapLineMaxBlocks(1); // map 的列数
 	//printf("%d %d\n", mapSize[0], mapSize[1]);
 	//printf("%d %d\n", mapMaxBlocks[0], mapMaxBlocks[1]);
-	sprintf(windowSize,  "mode con cols=%d lines=%d", 2 * (2 * (mapSize[1] + mapMaxBlocks[0]) + 5), 2 * (mapSize[0] + mapMaxBlocks[1] + 2));
-	system(windowSize);
+	/*sprintf(windowSize,  "mode con cols=%d lines=%d", 2 * (2 * (mapSize[1] + mapMaxBlocks[0]) + 5), 2 * (mapSize[0] + mapMaxBlocks[1] + 2));
+	system(windowSize);*/
 	if (!firstRun) {
 		pointer[0] = pointer[1] = 0;
 		//printf("%d %d\n", pointer[0], pointer[1]);
