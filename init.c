@@ -4,10 +4,21 @@ int getMapLineLength(int type) {
 	while (map[type][line][0] != 0 && line < size) line++;
 	return line;
 }
+
+int getMapLineMaxBlocks(int type) {
+	int max = 0, i, j, k;
+	for (i = 0; i < mapSize[type]; ++i)	{
+		j = 0;
+		while(map[type][i][j] != 0) j++;
+		if (j > max) max = j;
+	}
+	return max;
+}
+
 void clearUserMap() {
 	int i, j;
-	for(i = 0; i < 100; i++) {
-		for(j = 0; j < 100; j++) {
+	for (i = 0; i < 100; i++) {
+		for (j = 0; j < 100; j++) {
 			userMap[i][j] = 0;
 		}
 	}
@@ -18,13 +29,16 @@ void init() {
 	srand((unsigned int)time(NULL) + (unsigned int)getpid());
 	//int mapId = rand() % length;
 	unsigned int mapId = rand() % (sizeof(maps) / sizeof(maps[0]));
-	mapId = 1;
+	mapId = 1; // ¿ª·¢Ê±ÒÔµÚ¶þÕÅµØÍ¼½øÐÐ²âÊÔ
 	//printf("%d\n", id);
 	//map = maps[mapId];
 	memcpy(map, maps[mapId], sizeof(maps[mapId]));
-	mapSize[0] = getMapLineLength(0); // map çš„è¡Œæ•°
-	mapSize[1] = getMapLineLength(1); // map çš„åˆ—æ•°
+	mapSize[0] = getMapLineLength(0); // map µÄÐÐÊý
+	mapSize[1] = getMapLineLength(1); // map µÄÁÐÊý
+	mapMaxBlocks[0] = getMapLineMaxBlocks(0); // map µÄÐÐÊý
+	mapMaxBlocks[1] = getMapLineMaxBlocks(1); // map µÄÁÐÊý
 	//printf("%d %d\n", mapSize[0], mapSize[1]);
+	printf("%d %d\n", mapMaxBlocks[0], mapMaxBlocks[1]);
 	if (!firstRun) {
 		pointer[0] = pointer[1] = 0;
 		//printf("%d %d\n", pointer[0], pointer[1]);

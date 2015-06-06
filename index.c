@@ -1,4 +1,4 @@
-#include "require.c" /* æ­¤æ–‡ä»¶å†…ä¸ºéœ€è¦å¼•å…¥çš„å®˜æ–¹å‡½æ•°åº“ï¼ˆä½¿ç”¨ #include <>ï¼‰ */
-#include "config.c"  /* æ­¤æ–‡ä»¶å†…ä¸ºç¨‹åºçš„åŸºç¡€é…ç½®ï¼Œç”³æ˜Žéœ€è¦çš„å‡½æ•°åŠå…¨å±€å˜é‡ */
-#include "module.c"  /* æ­¤æ–‡ä»¶å†…ä¸ºå¼•å…¥å„å‡½æ•°å¯¹åº”çš„æ¨¡å—ï¼ˆä½¿ç”¨ #include ""ï¼‰ */
-#include "main.c"    /* æ­¤æ–‡ä»¶å†…ä¸ºç¨‹åºçš„ä¸»å‡½æ•°éƒ¨åˆ† */
+#include "require.c" /* ´ËÎÄ¼þÄÚÎªÐèÒªÒýÈëµÄ¹Ù·½º¯Êý¿â£¨Ê¹ÓÃ #include <>£© */
+#include "config.c"  /* ´ËÎÄ¼þÄÚÎª³ÌÐòµÄ»ù´¡ÅäÖÃ£¬ÉêÃ÷ÐèÒªµÄº¯Êý¼°È«¾Ö±äÁ¿ */
+#include "module.c"  /* ´ËÎÄ¼þÄÚÎªÒýÈë¸÷º¯Êý¶ÔÓ¦µÄÄ£¿é£¨Ê¹ÓÃ #include ""£© */
+#include "main.c"    /* ´ËÎÄ¼þÄÚÎª³ÌÐòµÄÖ÷º¯Êý²¿·Ö */

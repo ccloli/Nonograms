@@ -1,1 +1,4 @@
 *.exe
+*.sublime-*
+ANSI
+UTF-8
