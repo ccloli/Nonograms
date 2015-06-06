@@ -1,12 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include "config.c"
-#include "maps.c"
-#include "init.c"
-//#include "start.c"
-
 int main (int argc, char const *argv[]) {
 	int a;
 	//start();
@@ -15,8 +6,7 @@ int main (int argc, char const *argv[]) {
 	while (1){
 		a = getch();
 		printf("%d\n", a);
-		if (a == 72) system("cls");
-
+		if (a == 13) system("cls");
 	}
 	
 	getchar();
