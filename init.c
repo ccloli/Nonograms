@@ -5,11 +5,16 @@ int getMapLineLength(int type) {
 	return line;
 }
 
+int getMapLineBlocks(int type, int i) {
+	int j = 0;
+	while(map[type][i][j] != 0) j++;
+	return j;
+}
+
 int getMapLineMaxBlocks(int type) {
 	int max = 0, i, j, k;
 	for (i = 0; i < mapSize[type]; ++i)	{
-		j = 0;
-		while(map[type][i][j] != 0) j++;
+		j = getMapLineBlocks(type, i);
 		if (j > max) max = j;
 	}
 	return max;
@@ -25,6 +30,7 @@ void clearUserMap() {
 }
 
 void init() {
+	char windowSize[50];
 	//int length = sizeof(maps) / sizeof(maps[0]);
 	srand((unsigned int)time(NULL) + (unsigned int)getpid());
 	//int mapId = rand() % length;
@@ -38,7 +44,9 @@ void init() {
 	mapMaxBlocks[0] = getMapLineMaxBlocks(0); // map 的行数
 	mapMaxBlocks[1] = getMapLineMaxBlocks(1); // map 的列数
 	//printf("%d %d\n", mapSize[0], mapSize[1]);
-	printf("%d %d\n", mapMaxBlocks[0], mapMaxBlocks[1]);
+	//printf("%d %d\n", mapMaxBlocks[0], mapMaxBlocks[1]);
+	sprintf(windowSize,  "mode con cols=%d lines=%d", 2 * (2 * (mapSize[1] + mapMaxBlocks[0]) + 5), 2 * (mapSize[0] + mapMaxBlocks[1] + 2));
+	system(windowSize);
 	if (!firstRun) {
 		pointer[0] = pointer[1] = 0;
 		//printf("%d %d\n", pointer[0], pointer[1]);
