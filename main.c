@@ -26,6 +26,31 @@ int main (int argc, char const *argv[]) {
 		a = getch();
 		//printf("%d\n", a);
 		if (a == 13) system("cls");
+		// Up: 72, Down: 80, Left: 75, Right: 77
+		else if (a == 72) {
+			changePointer(0, -1);
+			draw();
+		}
+		else if (a == 80) {
+			changePointer(0, 1);
+			draw();
+		}
+		else if (a == 75) {
+			changePointer(-1, 0);
+			draw();
+		}
+		else if (a == 77) {
+			changePointer(1, 0);
+			draw();
+		}
+		else if (a == 32) {
+			changeChess();
+			draw();
+			if(check()) {
+				printf("\nCongratulation! You Win!\n");
+				break;
+			}
+		}
 		else if (a == 48) {
 			init();
 			draw();
@@ -37,9 +62,9 @@ int main (int argc, char const *argv[]) {
 		else if (a == 50) {
 			changeKey();
 			draw();
-			printf("%d\n", check());
+			//printf("%d\n", check());
 			if(check()) {
-				printf("Congratulation! You Win!\n");
+				printf("\nCongratulation! You Win!\n");
 				break;
 			}
 		}
