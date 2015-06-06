@@ -47,10 +47,10 @@ int main (int argc, char const *argv[]) {
 			randomMap();
 			draw();
 		}
-		else if (a == 54) {
+		/*else if (a == 54) {
 			correctMap();
 			draw();
-		}
+		}*/
 	}
 	fflush(stdin);
 	getchar();

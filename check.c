@@ -37,6 +37,7 @@ int check()
 	} 
 	/*int i, j;*/
 	change(userMap);
+	/*
 	printf("\n");
 	for (i = 0; i < mapSize[0]; i++) 
 	{
@@ -55,6 +56,7 @@ int check()
 		}
 		printf("\n");
 	}
+	*/
 	return compare(relayMap);
 
 }
