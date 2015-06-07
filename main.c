@@ -81,7 +81,8 @@ int main (int argc, char const *argv[]) {
 	while (i != 13);
 	do chooseLevel(&j);
 	while (chooseGame(&j, &k) == 0);
-	
+	mapAction[0] = j;
+	mapAction[1] = k;
 	init(j, k);
 	draw();
 	//printf("%d %d\n", mapId, map[0][0][0]);

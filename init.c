@@ -23,14 +23,15 @@ int getMapLineMaxBlocks(int type) {
 
 void clearUserMap() {
 	int i, j;
-	for (i = 0; i < 100; i++) {
-		for (j = 0; j < 100; j++) {
+	for (i = 0; i < 50; i++) {
+		for (j = 0; j < 50; j++) {
 			userMap[i][j] = 0;
 		}
 	}
 }
 
 void init(int i, int j) {
+	system("cls");
 	char windowSize[50];
 	//int length = sizeof(maps) / sizeof(maps[0]);
 	//srand((unsigned int)time(NULL) + (unsigned int)getpid());
@@ -45,6 +46,8 @@ void init(int i, int j) {
 	//mapSize[1] = getMapLineLength(1); // map 的列数
 	mapSize[0] = map[2][0][0];
 	mapSize[1] = map[2][0][1];
+	//printf("%d %d %d %d\n", mapSize[0], mapSize[1], map[2][0][0], map[2][0][1]);
+	//memcpy(mapSize, map[2][0], sizeof(map[2][0]));
 	mapMaxBlocks[0] = getMapLineMaxBlocks(0); // map 的行数
 	mapMaxBlocks[1] = getMapLineMaxBlocks(1); // map 的列数
 	//printf("%d %d\n", mapSize[0], mapSize[1]);
@@ -55,6 +58,6 @@ void init(int i, int j) {
 	pointer[0] = pointer[1] = 0;
 	//printf("%d %d\n", pointer[0], pointer[1]);
 	clearUserMap();
-	firstRun = 1;
+	//firstRun = 1;
 	//}
 }

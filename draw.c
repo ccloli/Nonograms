@@ -6,7 +6,8 @@
 void draw() {
 	unsigned int i, j;
 	system("cls");
-	printf(">> Nonograms \n");
+	printf(">> Nonograms %s\n", mapsName[mapAction[0]][mapAction[1]]);
+	//printf("%d %d %d %d\n", mapSize[0], mapSize[1], map[2][0][0], map[2][0][1]);
 	/*
 	for (i = 0; i < mapSize[0]; i++) {
 		for (j = 0; j < mapMaxBlocks[0]; j++) printf("%5d\n", map[0][i][j]);
