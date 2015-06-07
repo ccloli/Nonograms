@@ -21,8 +21,8 @@ void chooseLevel(int *j) {
 			printf("\n                                 ");
 			if (i == (*j)) {
 				sprintf(selectedStr, "  > %s <  ", mapsLevel[i++]);
-				if (i < 5) printcf(selectedStr, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
-				else printcf(selectedStr, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_INTENSITY);
+				if (*j >= 5) printcf(selectedStr, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_INTENSITY);
+				else printcf(selectedStr, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
 			}
 			else printf("    %s", mapsLevel[i++]);
 		}
@@ -31,7 +31,7 @@ void chooseLevel(int *j) {
 		if (i == 72 && (*j) > 0) --(*j);
 		else if (i == 80 && (*j) < 8) ++(*j);
 	}
-	while (i != 13 && *j < 5);
+	while (i != 13 || *j >= 5);
 }
 
 int chooseGame(int *j, int *k) {
