@@ -23,15 +23,15 @@ unsigned int userMap[100][100]=
 unsigned int mapSize[2]={5,5};
 unsigned int mapMaxBlocks[2]={2,2};
 */
-unsigned int relayMap[2][100][50];
+unsigned int relayMap[2][50][25];
 int check()
 {
 	int i,j,k;
 	for(i=0;i<2;i++)
 	{
-		for(j=0;j<100;j++)
+		for(j=0;j<50;j++)
 		{
-			for(k=0;k<50;k++)
+			for(k=0;k<25;k++)
 			relayMap[i][j][k]=0;
 		}
 	} 
@@ -61,7 +61,7 @@ int check()
 
 }
 
-int compare(unsigned int modal[2][100][50])
+int compare(unsigned int modal[2][50][25])
 {	
 	int i,j,k,equal=0;
 	
@@ -92,7 +92,7 @@ int compare(unsigned int modal[2][100][50])
 }
 
 
-void change(unsigned int modal[100][100])
+void change(unsigned int modal[50][50])
 {
 	int i,j,linesum,rowsum,space;
 	for(i=0;i<=mapSize[0]-1;i++)
