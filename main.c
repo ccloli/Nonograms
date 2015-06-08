@@ -30,6 +30,7 @@ void chooseLevel(int *j) {
 		i = getch();
 		if (i == 72 && (*j) > 0) --(*j);
 		else if (i == 80 && (*j) < 8) ++(*j);
+		else if (i == 27) exit(0);
 	}
 	while (i != 13 || *j >= 5);
 }
@@ -64,28 +65,50 @@ int chooseGame(int *j, int *k) {
 			(*k) = 0;
 			return 0;
 		}
+		else if (i == 27) exit(0);
 	}
 	while (i != 13);
 	return 1;
 }
-
-int main (int argc, char const *argv[]) {
-	getProgress();
-	CONSOLE_CURSOR_INFO cursor_info = {1, 0}; 
-	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+/*
+void startGame(int *j, int *k) {
 	system("mode con cols=80 lines=25");
-	int a;
-	int i = 0, j = 0, k = 0, l;
-	printTitle(1);
-	printf("                              Press Enter to Start");
-	do i = getch();
-	while (i != 13);
 	do chooseLevel(&j);
 	while (chooseGame(&j, &k) == 0);
 	mapAction[0] = j;
 	mapAction[1] = k;
 	init(j, k);
 	draw();
+	printActionTips();
+}
+*/
+void printActionTips() {
+	printf(" \n> Press ");
+	printcf("Backspace", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	printf(" to go back.\n> Press ");
+	printcf("Esc", FOREGROUND_RED | FOREGROUND_INTENSITY);
+	printf(" to quit.");
+}
+
+int main(int argc, char const *argv[]) {
+	getProgress();
+	CONSOLE_CURSOR_INFO cursor_info = {1, 0}; 
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+	system("mode con cols=80 lines=25");
+	int a;
+	int i = 0, j = 0, k = 0, l = 0;
+	printTitle(1);
+	printf("                              Press Enter to Start");
+	do i = getch();
+	while (i != 13);
+	//startGame(&j, &k);
+	do chooseLevel(&j);
+	while (chooseGame(&j, &k) == 0);
+	mapAction[0] = j;
+	mapAction[1] = k;
+	init(j, k);
+	draw();
+	printActionTips();
 	//printf("%d %d\n", mapId, map[0][0][0]);
 	/*printf(
 		"            庚岸房岸房岸房岸房岸庖\n"
@@ -109,38 +132,94 @@ int main (int argc, char const *argv[]) {
 		//printf("%d\n", a);
 		if (a == 8) {
 			system("mode con cols=80 lines=25");
+			//startGame(&j, &k);
 			do chooseLevel(&j);
 			while (chooseGame(&j, &k) == 0);
 			mapAction[0] = j;
 			mapAction[1] = k;
 			init(j, k);
 			draw();
+			printActionTips();
 		}
+		else if (a == 27) exit(0);
 		//if (a == 13) system("cls");
 		// Up: 72, Down: 80, Left: 75, Right: 77
 		else if (a == 72) {
-			if (changePointer(0, -1))draw();
+			if (changePointer(0, -1)) {
+				draw();
+				printActionTips();
+			}
 		}
 		else if (a == 80) {
-			if (changePointer(0, 1))draw();
+			if (changePointer(0, 1)) {
+				draw();
+				printActionTips();
+			}
 		}
 		else if (a == 75) {
-			if (changePointer(-1, 0))draw();
+			if (changePointer(-1, 0)) {
+				draw();
+				printActionTips();
+			}
 		}
 		else if (a == 77) {
-			if (changePointer(1, 0))draw();
+			if (changePointer(1, 0)) {
+				draw();
+				printActionTips();
+			}
 		}
 		else if (a == 32) {
 			changeChess();
 			draw();
 			if(check()) {
-				printf("\nCongratulation! You Win!\n");
 				saveProgress(j, k);
-				break;
+				printcf("\nCongratulation! You Win!\n", FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+				printf("> Press ");
+				printcf("Enter", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+				printf(" to play next game.");
+				printActionTips();
+				l = 0;
+				do {
+					i = getch();
+					if (i == 8) {
+						//startGame(&j, &k);
+						system("mode con cols=80 lines=25");
+						do chooseLevel(&j);
+						while (chooseGame(&j, &k) == 0);
+						mapAction[0] = j;
+						mapAction[1] = k;
+						init(j, k);
+						draw();
+						printActionTips();
+					}
+					else if (i == 13) {
+						if (maps[j][k + 1][2][0][0] != 0) {
+							init(j, ++k);
+							draw();
+							printActionTips();
+						}
+						else if (maps[j + 1][0][2][0][0] != 0) {
+							init(++j, k = 0);
+							draw();
+							printActionTips();
+						}
+						else l = 1;
+					}
+					else if (i == 27) exit(0);
+					else continue;
+					break;
+				}
+				while (1);
+				if (l == 1) {
+					printf("No more games to continue. Press Enter to quit.\n");
+					break;
+				}
+				//break;
 			}
+			else printActionTips();
 		}
 		else if (a == 48) {
-			srand((unsigned int)time(NULL) + (unsigned int)getpid());
+			srand((unsigned int)getpid());
 			l = rand() % (sizeof(maps) / sizeof(maps[0]));
 			init(l, rand() % (sizeof(maps[l]) / sizeof(maps[l][0])));
 			draw();
@@ -154,7 +233,7 @@ int main (int argc, char const *argv[]) {
 			draw();
 			//printf("%d\n", check());
 			if(check()) {
-				printf("\nCongratulation! You Win!\n");
+				printf("\nCongratulation! You Win!");
 				break;
 			}
 		}
