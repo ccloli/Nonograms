@@ -46,10 +46,10 @@ int chooseGame(int *j, int *k) {
 		while (mapsName[*j][i][0] != '\0') {
 			if (i == (*k)) {
 				//printf("  > %2d. %-18s", i+1, mapsName[*j][i]);
-				sprintf(selectedStr, "  > %2d. %-18s", i+1, mapsName[*j][i]);
+				sprintf(selectedStr, "  > %2d. %-16s%s", i+1, mapsName[*j][i], progress[*j][i] ? "¡Ì" : "  ");
 				printcf(selectedStr, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
 			}
-			else printf("    %2d. %-18s", i+1, mapsName[*j][i]);
+			else printf("    %2d. %-16s%s", i+1, mapsName[*j][i], progress[*j][i] ? "¡Ì" : "  ");
 			i++;
 			if (i % 3 == 0) printf("\n ");
 		}
