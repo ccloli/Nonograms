@@ -79,10 +79,21 @@ void startGame(int *j, int *k) {
 	mapAction[1] = k;
 	init(j, k);
 	draw();
-	printActionTips();
+	printActionTips(1);
 }
 */
-void printActionTips() {
+void printActionTips(int i) {
+	if (i == 0) {
+		printf("\n\n> Press ");
+		printcf("Space", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		printf(" to fill or clear.");
+	}
+	else if (i == 1) {
+		printcf("\nCongratulation! You Win!", FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		printf("\n> Press ");
+		printcf("Enter", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		printf(" to play next game.");
+	}
 	printf(" \n> Press ");
 	printcf("Backspace", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 	printf(" to go back.\n> Press ");
@@ -108,7 +119,7 @@ int main(int argc, char const *argv[]) {
 	mapAction[1] = k;
 	init(j, k);
 	draw();
-	printActionTips();
+	printActionTips(1);
 	//printf("%d %d\n", mapId, map[0][0][0]);
 	/*printf(
 		"            庚岸房岸房岸房岸房岸庖\n"
@@ -139,7 +150,7 @@ int main(int argc, char const *argv[]) {
 			mapAction[1] = k;
 			init(j, k);
 			draw();
-			printActionTips();
+			printActionTips(1);
 		}
 		else if (a == 27) exit(0);
 		//if (a == 13) system("cls");
@@ -147,25 +158,25 @@ int main(int argc, char const *argv[]) {
 		else if (a == 72) {
 			if (changePointer(0, -1)) {
 				draw();
-				printActionTips();
+				printActionTips(0);
 			}
 		}
 		else if (a == 80) {
 			if (changePointer(0, 1)) {
 				draw();
-				printActionTips();
+				printActionTips(0);
 			}
 		}
 		else if (a == 75) {
 			if (changePointer(-1, 0)) {
 				draw();
-				printActionTips();
+				printActionTips(0);
 			}
 		}
 		else if (a == 77) {
 			if (changePointer(1, 0)) {
 				draw();
-				printActionTips();
+				printActionTips(0);
 			}
 		}
 		else if (a == 32) {
@@ -173,11 +184,7 @@ int main(int argc, char const *argv[]) {
 			draw();
 			if(check()) {
 				saveProgress(j, k);
-				printcf("\nCongratulation! You Win!\n", FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-				printf("> Press ");
-				printcf("Enter", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-				printf(" to play next game.");
-				printActionTips();
+				printActionTips(1);
 				l = 0;
 				do {
 					i = getch();
@@ -190,18 +197,18 @@ int main(int argc, char const *argv[]) {
 						mapAction[1] = k;
 						init(j, k);
 						draw();
-						printActionTips();
+						printActionTips(0);
 					}
 					else if (i == 13) {
 						if (maps[j][k + 1][2][0][0] != 0) {
 							init(j, ++k);
 							draw();
-							printActionTips();
+							printActionTips(0);
 						}
 						else if (maps[j + 1][0][2][0][0] != 0) {
 							init(++j, k = 0);
 							draw();
-							printActionTips();
+							printActionTips(0);
 						}
 						else l = 1;
 					}
@@ -216,7 +223,7 @@ int main(int argc, char const *argv[]) {
 				}
 				//break;
 			}
-			else printActionTips();
+			else printActionTips(0);
 		}
 		else if (a == 48) {
 			srand((unsigned int)getpid());
