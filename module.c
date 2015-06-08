@@ -4,5 +4,6 @@
 #include "draw.c"
 #include "action.c"
 #include "check.c"
+#include "store.c"
 #include "test.c"
 //#include "start.c"
