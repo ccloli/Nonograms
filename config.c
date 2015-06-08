@@ -7,7 +7,7 @@ unsigned int mapMaxBlocks[2]; // 当前地图各行各列中最大区块数
 unsigned int pointer[2]; // 用户的指针位置
 unsigned int mapAction[2];
 unsigned int progress[9][50];
-
+/*
 // 初始化游戏
 void init();
 
@@ -25,3 +25,4 @@ int check();
 
 // 开始游戏
 void start();
+*/

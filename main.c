@@ -30,7 +30,7 @@ void chooseLevel(int *j) {
 		i = getch();
 		if (i == 72 && (*j) > 0) --(*j);
 		else if (i == 80 && (*j) < 8) ++(*j);
-		else if (i == 27) exit(0);
+		else if (i == 27) exit(EXIT_SUCCESS);
 	}
 	while (i != 13 || *j >= 5);
 }
@@ -65,7 +65,7 @@ int chooseGame(int *j, int *k) {
 			(*k) = 0;
 			return 0;
 		}
-		else if (i == 27) exit(0);
+		else if (i == 27) exit(EXIT_SUCCESS);
 	}
 	while (i != 13);
 	return 1;
@@ -84,19 +84,19 @@ void startGame(int *j, int *k) {
 */
 void printActionTips(int i) {
 	if (i == 0) {
-		printf("\n\n> Press ");
+		printf("\n\n > Press ");
 		printcf("Space", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 		printf(" to fill or clear.");
 	}
 	else if (i == 1) {
-		printcf("\nCongratulation! You Win!", FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-		printf("\n> Press ");
+		printcf("\n Congratulation! You Win!", FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		printf("\n > Press ");
 		printcf("Enter", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		printf(" to play next game.");
 	}
-	printf(" \n> Press ");
+	printf(" \n > Press ");
 	printcf("Backspace", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	printf(" to go back.\n> Press ");
+	printf(" to go back.\n > Press ");
 	printcf("Esc", FOREGROUND_RED | FOREGROUND_INTENSITY);
 	printf(" to quit.");
 }
@@ -152,7 +152,7 @@ int main(int argc, char const *argv[]) {
 			draw();
 			printActionTips(1);
 		}
-		else if (a == 27) exit(0);
+		else if (a == 27) exit(EXIT_SUCCESS);
 		//if (a == 13) system("cls");
 		// Up: 72, Down: 80, Left: 75, Right: 77
 		else if (a == 72) {
@@ -212,7 +212,7 @@ int main(int argc, char const *argv[]) {
 						}
 						else l = 1;
 					}
-					else if (i == 27) exit(0);
+					else if (i == 27) exit(EXIT_SUCCESS);
 					else continue;
 					break;
 				}

@@ -52,7 +52,7 @@ void init(int i, int j) {
 	mapMaxBlocks[1] = getMapLineMaxBlocks(1); // map µÄÁÐÊý
 	//printf("%d %d\n", mapSize[0], mapSize[1]);
 	//printf("%d %d\n", mapMaxBlocks[0], mapMaxBlocks[1]);
-	sprintf(windowSize,  "mode con cols=%d lines=%d", 2 * (2 * (mapSize[1] + mapMaxBlocks[0]) + 5), 2 * (mapSize[0] + mapMaxBlocks[1] + 3));
+	sprintf(windowSize,  "mode con cols=%d lines=%d", 2 * (2 * (mapSize[1] + mapMaxBlocks[0]) + 5), 2 * (mapSize[0] + mapMaxBlocks[1] + 4));
 	system(windowSize);
 	//if (!firstRun) {
 	pointer[0] = pointer[1] = 0;

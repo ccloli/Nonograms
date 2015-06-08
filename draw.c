@@ -8,7 +8,7 @@ void draw() {
 	char drawStr[9999];
 	int offset = 0;
 	system("cls");
-	offset += sprintf(drawStr + offset, ">> Nonograms %s\n", mapsName[mapAction[0]][mapAction[1]]);
+	offset += sprintf(drawStr + offset, "\n >> Nonograms %s\n", mapsName[mapAction[0]][mapAction[1]]);
 	//offset += sprintf(drawStr + offset, "%d %d %d %d\n", mapSize[0], mapSize[1], map[2][0][0], map[2][0][1]);
 	/*
 	for (i = 0; i < mapSize[0]; i++) {
