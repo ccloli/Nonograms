@@ -70,6 +70,7 @@ int chooseGame(int *j, int *k) {
 }
 
 int main (int argc, char const *argv[]) {
+	getProgress();
 	CONSOLE_CURSOR_INFO cursor_info = {1, 0}; 
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 	system("mode con cols=80 lines=25");
@@ -106,7 +107,16 @@ int main (int argc, char const *argv[]) {
 	while (1){
 		a = getch();
 		//printf("%d\n", a);
-		if (a == 13) system("cls");
+		if (a == 8) {
+			system("mode con cols=80 lines=25");
+			do chooseLevel(&j);
+			while (chooseGame(&j, &k) == 0);
+			mapAction[0] = j;
+			mapAction[1] = k;
+			init(j, k);
+			draw();
+		}
+		//if (a == 13) system("cls");
 		// Up: 72, Down: 80, Left: 75, Right: 77
 		else if (a == 72) {
 			changePointer(0, -1);
@@ -129,6 +139,7 @@ int main (int argc, char const *argv[]) {
 			draw();
 			if(check()) {
 				printf("\nCongratulation! You Win!\n");
+				saveProgress(j, k);
 				break;
 			}
 		}

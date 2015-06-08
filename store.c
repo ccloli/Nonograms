@@ -3,7 +3,7 @@ void getProgress()
     FILE *fp = NULL;
     int i, j;
 
-    fp = ("GameData.txt", "r");
+    fp = fopen("GameData.txt", "r");
     if (fp != NULL) {
         for (i = 0; i < 9; i++) {
             for (j = 0; j < 50; j++) {
@@ -26,10 +26,10 @@ void saveProgress(int jibie, int guan)
     int i, j;
 
     if (jibie <= 9 && guan <= 50) {
-        progress[jibie - 1][guan - 1] = 1;
+        progress[jibie][guan] = 1;
     }
 
-    fp = ("GameData.txt", "w+");
+    fp = fopen("GameData.txt", "w+");
     for (i = 0; i < 9; i++) {
         for (j = 0; j < 50; j++) {
             if (progress[i][j] == 0) {
