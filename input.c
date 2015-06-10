@@ -1,38 +1,37 @@
-// Source: tieba@å†°æ˜¯æ²‰é»˜çš„æ°´3 http://tieba.baidu.com/p/2609166559 & SorinAlex http://www.cplusplus.com/forum/beginner/121585/ 
+// Source: tieba@±ùÊÇ³ÁÄ¬µÄË®3 http://tieba.baidu.com/p/2609166559 & SorinAlex http://www.cplusplus.com/forum/beginner/121585/ 
 /*
 #include<stdio.h>
 #include<windows.h>
 */
-HANDLE hInput;  /*  è·å–æ ‡å‡†è¾“å…¥è®¾å¤‡å¥æŸ„ */
-INPUT_RECORD inRec;/*  è¿”å›æ•°æ®è®°å½• */
-DWORD numRead; /*  è¿”å›å·²è¯»å–çš„è®°å½•æ•° */
+HANDLE hInput;  /*  »ñÈ¡±ê×¼ÊäÈëÉè±¸¾ä±ú */
+INPUT_RECORD inRec;/*  ·µ»ØÊı¾İ¼ÇÂ¼ */
+DWORD numRead; /*  ·µ»ØÒÑ¶ÁÈ¡µÄ¼ÇÂ¼Êı */
 int clickPosition[2];
 int inputASCII;
-int type;
-//int Y,X;/* Xå’ŒYçš„åæ ‡ */
-int getInputAction()
-{
-	hInput = GetStdHandle(STD_INPUT_HANDLE); // è¾“å…¥è®¾å¤‡å¥æŸ„
+
+int getInputAction() {
+	int type;
+	hInput = GetStdHandle(STD_INPUT_HANDLE); // ÊäÈëÉè±¸¾ä±ú
+	// ÖØĞÂ×¢²áÊó±êÊäÈëÊÂ¼şÒÔ½â¾öÖ´ĞĞ system ºóÎŞ·¨¶ÁÈ¡Êó±êÊÂ¼şµÄÎÊÌâ
+	// https://msdn.microsoft.com/en-us/library/windows/desktop/ms686033(v=vs.85).aspx
+	SetConsoleMode(hInput, ENABLE_MOUSE_INPUT);
 	COORD pos = {0,0};
 	while (1) {
-		ReadConsoleInput(hInput, &inRec, 1, &numRead); // è¯»å–1ä¸ªè¾“å…¥äº‹ä»¶
+		ReadConsoleInput(hInput, &inRec, 1, &numRead); // ¶ÁÈ¡1¸öÊäÈëÊÂ¼ş
 		if (inRec.EventType == KEY_EVENT && inRec.Event.KeyEvent.bKeyDown) {
+			inputASCII = (int)inRec.Event.KeyEvent.wVirtualKeyCode;//uChar.AsciiChar;
 			type = 1;
 			break;
 		}
 		// https://msdn.microsoft.com/en-us/library/windows/desktop/ms684239(v=vs.85).aspx
 		else if (inRec.EventType == MOUSE_EVENT && inRec.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
 			pos = inRec.Event.MouseEvent.dwMousePosition;
+			clickPosition[0] = (int)pos.X;
+			clickPosition[1] = (int)pos.Y;
 			type = 2;
+			//printf("12315564\n");
 			break;
 		}
-	}
-	if (type == 1) {
-		inputASCII = (int)inRec.Event.KeyEvent.wVirtualKeyCode;//uChar.AsciiChar;
-	}
-	else if (type == 2) {
-		clickPosition[0] = (int)pos.X;
-		clickPosition[1] = (int)pos.Y;
 	}
 	//printf("215615\n");
 	return type;
