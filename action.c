@@ -7,6 +7,11 @@ int changePointer(int j, int i) {
 	else return 0;
 }
 
+void setPointer(int j, int i) {
+	pointer[0] = i;
+	pointer[1] = j;
+}
+
 void changeChess() {
 	userMap[pointer[0]][pointer[1]] = !userMap[pointer[0]][pointer[1]];
 }
