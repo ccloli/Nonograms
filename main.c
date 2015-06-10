@@ -94,7 +94,7 @@ void printActionTips(int i) {
 		printcf("Enter", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		printf(" to play next game.");
 	}
-	printf(" \n > Press ");
+	printf("\n > Press ");
 	printcf("Backspace", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 	printf(" to go back.\n > Press ");
 	printcf("Esc", FOREGROUND_RED | FOREGROUND_INTENSITY);
@@ -105,6 +105,7 @@ int main(int argc, char const *argv[]) {
 	getProgress();
 	CONSOLE_CURSOR_INFO cursor_info = {1, 0}; 
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+	system("title Nonograms");
 	system("mode con cols=80 lines=25");
 	int a;
 	int i = 0, j = 0, k = 0, l = 0;
@@ -119,7 +120,7 @@ int main(int argc, char const *argv[]) {
 	mapAction[1] = k;
 	init(j, k);
 	draw();
-	printActionTips(1);
+	printActionTips(0);
 	//printf("%d %d\n", mapId, map[0][0][0]);
 	/*printf(
 		"            庚岸房岸房岸房岸房岸庖\n"
@@ -150,7 +151,7 @@ int main(int argc, char const *argv[]) {
 			mapAction[1] = k;
 			init(j, k);
 			draw();
-			printActionTips(1);
+			printActionTips(0);
 		}
 		else if (a == 27) exit(EXIT_SUCCESS);
 		//if (a == 13) system("cls");
@@ -202,11 +203,15 @@ int main(int argc, char const *argv[]) {
 					else if (i == 13) {
 						if (maps[j][k + 1][2][0][0] != 0) {
 							init(j, ++k);
+							mapAction[0] = j;
+							mapAction[1] = k;
 							draw();
 							printActionTips(0);
 						}
 						else if (maps[j + 1][0][2][0][0] != 0) {
 							init(++j, k = 0);
+							mapAction[0] = j;
+							mapAction[1] = k;
 							draw();
 							printActionTips(0);
 						}
