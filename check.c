@@ -1,4 +1,4 @@
-/*
+/* 
 #include<stdio.h>
 #include<stdlib.h>
 unsigned int map[2][100][50]=	
@@ -24,7 +24,18 @@ unsigned int mapSize[2]={5,5};
 unsigned int mapMaxBlocks[2]={2,2};
 */
 unsigned int relayMap[2][50][25];
+
 int check()
+{
+ 	clearMap();
+	
+	change(userMap);
+	
+	return compare(relayMap);
+
+}
+
+void clearMap()
 {
 	int i,j,k;
 	for(i=0;i<2;i++)
@@ -34,31 +45,7 @@ int check()
 			for(k=0;k<25;k++)
 			relayMap[i][j][k]=0;
 		}
-	} 
-	/*int i, j;*/
-	change(userMap);
-	/*
-	printf("\n");
-	for (i = 0; i < mapSize[0]; i++) 
-	{
-		for (j = 0; j < mapSize[0]; j++) 
-		{
-			printf("%5d", relayMap[0][i][j]);
-		}
-		printf("\n");
 	}
-	printf("\n");
-	for (i = 0; i < mapSize[1]; i++) 
-	{
-		for (j = 0; j < mapSize[1]; j++) 
-		{
-			printf("%5d", relayMap[1][i][j]);
-		}
-		printf("\n");
-	}
-	*/
-	return compare(relayMap);
-
 }
 
 int compare(unsigned int modal[2][50][25])
@@ -67,24 +54,20 @@ int compare(unsigned int modal[2][50][25])
 	
 	for(i=0;i<mapSize[0];i++)
 		{
-			for(j=0;j<mapMaxBlocks[0];j++)
 			{
+			for(j=0;j<mapSize[1]/2+mapSize[1]%2;j++)
 				if(modal[0][i][j]!=map[0][i][j])
 				equal++;
 			}
 		}
 	for(i=0;i<mapSize[1];i++)
 		{
-			for(j=0;j<mapMaxBlocks[1];j++)
+			for(j=0;j<mapSize[0]/2+mapSize[0]%2;j++)
 			{
 				if(modal[1][i][j]!=map[1][i][j])
 				equal++;
 			}
 		}
-	/*if(equal==0)
-		return 1;
-	else
-		return 0;*/
 	
 	return !equal;
 	
