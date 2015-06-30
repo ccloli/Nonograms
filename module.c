@@ -1,6 +1,7 @@
 #include "maps.c"
 #include "mapsInfo.c"
 #include "init.c"
+#include "input.c"
 #include "draw.c"
 #include "action.c"
 #include "check.c"

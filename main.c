@@ -27,10 +27,20 @@ void chooseLevel(int *j) {
 			else printf("    %s", mapsLevel[i++]);
 		}
 		if (*j >= 5) printcf("\n                                 Coming soon...", FOREGROUND_RED | FOREGROUND_INTENSITY);
-		i = getch();
-		if (i == 72 && (*j) > 0) --(*j);
-		else if (i == 80 && (*j) < 8) ++(*j);
-		else if (i == 27) exit(EXIT_SUCCESS);
+		i = getInputAction();
+		if (i == 1) {
+			if (inputASCII == 38 && (*j) > 0) --(*j);
+			else if (inputASCII == 40 && (*j) < 8) ++(*j);
+			else if (inputASCII == 27) exit(EXIT_SUCCESS);
+			else i = inputASCII;
+		}
+		else if (i == 2) {
+			//printf("%d %d\n", clickPosition[0], clickPosition[1]); // 14~22
+			if (clickPosition[1] > 13 && clickPosition[1] < 23) {
+				*j = clickPosition[1] - 14;
+				i = 13;
+			}
+		}
 	}
 	while (i != 13 || *j >= 5);
 }
@@ -55,17 +65,38 @@ int chooseGame(int *j, int *k) {
 			if (i % 3 == 0) printf("\n ");
 		}
 		l = i;
-		i = getch();
-		if (i == 72 && (*k) - 3 >= 0) (*k) -= 3;
-		else if (i == 80 && (*k) + 3 < l) (*k) += 3;
-		else if (i == 75 && (*k) > 0) (*k)--;
-		else if (i == 77 && (*k) < l - 1) (*k)++;
-		else if (i == 8) {
-			//(*j) = 0;
-			(*k) = 0;
-			return 0;
+		i = getInputAction();
+		if (i == 1) {
+			// 38 40 37 39
+			if (inputASCII == 38 && (*k) - 3 >= 0) (*k) -= 3;
+			else if (inputASCII == 40 && (*k) + 3 < l) (*k) += 3;
+			else if (inputASCII == 37 && (*k) > 0) (*k)--;
+			else if (inputASCII == 39 && (*k) < l - 1) (*k)++;
+			else if (inputASCII == 8) {
+				//(*j) = 0;
+				(*k) = 0;
+				return 0;
+			}
+			else if (inputASCII == 27) exit(EXIT_SUCCESS);
+			else i = inputASCII;
 		}
-		else if (i == 27) exit(EXIT_SUCCESS);
+		else if (i == 2) {
+			//printf("%d %d\n", clickPosition[0], clickPosition[1]); // 11~
+			if (clickPosition[1] > 10 && clickPosition[0] > 0 && clickPosition[0] < 79) {
+				i = (clickPosition[1] - 11) * 3 + (clickPosition[0] - 1) / 26;
+				//printf("%d\n", i);
+				if (i < l) {
+					(*k) = i;
+					i = 13;
+				}
+			}
+			else if (clickPosition[1] == 9) {
+				(*k) = 0;
+				return 0;
+			}
+			//getInputAction();
+
+		}
 	}
 	while (i != 13);
 	return 1;
@@ -110,8 +141,12 @@ int main(int argc, char const *argv[]) {
 	int a;
 	int i = 0, j = 0, k = 0, l = 0;
 	printTitle(1);
-	printf("                              Press Enter to Start");
-	do i = getch();
+	printf("                          Press Enter or Click to Start");
+	do {
+		i = getInputAction();
+		if (i == 1) i = inputASCII;
+		else i = 13;
+	}
 	while (i != 13);
 	//startGame(&j, &k);
 	do chooseLevel(&j);
@@ -140,9 +175,9 @@ int main(int argc, char const *argv[]) {
 		"    ©¸©¤©Ø©¤©Ø©¤©Ø©¤©Ø©¤©Ø©¤©Ø©¤©¼\n"
 		);*/
 	while (1){
-		a = getch();
+		i = getInputAction();
 		//printf("%d\n", a);
-		if (a == 8) {
+		if ((i == 1 && inputASCII == 8) || (i == 2 && clickPosition[1] == 2 * (mapSize[0] + mapMaxBlocks[1] + 3) - 1)) {
 			system("mode con cols=80 lines=25");
 			//startGame(&j, &k);
 			do chooseLevel(&j);
@@ -153,34 +188,42 @@ int main(int argc, char const *argv[]) {
 			draw();
 			printActionTips(0);
 		}
-		else if (a == 27) exit(EXIT_SUCCESS);
+		else if ((i == 1 && inputASCII == 27) || (i == 2 && clickPosition[1] == 2 * (mapSize[0] + mapMaxBlocks[1] + 3))) exit(EXIT_SUCCESS);
 		//if (a == 13) system("cls");
 		// Up: 72, Down: 80, Left: 75, Right: 77
-		else if (a == 72) {
+		else if ((i == 1 && inputASCII == 38)) {
 			if (changePointer(0, -1)) {
 				draw();
 				printActionTips(0);
 			}
 		}
-		else if (a == 80) {
+		else if ((i == 1 && inputASCII == 40)) {
 			if (changePointer(0, 1)) {
 				draw();
 				printActionTips(0);
 			}
 		}
-		else if (a == 75) {
+		else if ((i == 1 && inputASCII == 37)) {
 			if (changePointer(-1, 0)) {
 				draw();
 				printActionTips(0);
 			}
 		}
-		else if (a == 77) {
+		else if ((i == 1 && inputASCII == 39)) {
 			if (changePointer(1, 0)) {
 				draw();
 				printActionTips(0);
 			}
 		}
-		else if (a == 32) {
+		/*else if (i == 2 && clickPosition[0] > (mapMaxBlocks[0] + 1) * 2 && clickPosition[0] < 2 * (2 * (mapSize[1] + mapMaxBlocks[0]) + 5) - 5 && clickPosition[1] > (mapMaxBlocks[1] + 1) * 2 && clickPosition[1] < (mapMaxBlocks[1] + 1 + mapSize[1]) * 2 && clickPosition[1] % 2 == 1) {
+			setPointer((clickPosition[0] - (mapMaxBlocks[0] + 1) * 4 - 1) / 4, (clickPosition[1] - (mapMaxBlocks[1] + 1) * 2) / 2);
+			printf("%d %d\n", pointer[0], pointer[1]);
+			changeChess();
+			getInputAction();
+			draw();
+		}*/
+		else if ((i == 1 && inputASCII == 32) || (i == 2 && clickPosition[0] > (mapMaxBlocks[0] + 1) * 2 && clickPosition[0] < 2 * (2 * (mapSize[1] + mapMaxBlocks[0]) + 5) - 5 && clickPosition[1] > (mapMaxBlocks[1] + 1) * 2 && clickPosition[1] < (mapMaxBlocks[1] + 1 + mapSize[1]) * 2 && clickPosition[1] % 2 == 1)) {
+			if (i == 2) setPointer((clickPosition[0] - (mapMaxBlocks[0] + 1) * 4 - 1) / 4, (clickPosition[1] - (mapMaxBlocks[1] + 1) * 2) / 2);
 			changeChess();
 			draw();
 			if(check()) {
@@ -188,8 +231,8 @@ int main(int argc, char const *argv[]) {
 				printActionTips(1);
 				l = 0;
 				do {
-					i = getch();
-					if (i == 8) {
+					i = getInputAction();
+					if ((i == 1 && inputASCII == 8) || (i == 2 && clickPosition[1] == 2 * (mapSize[0] + mapMaxBlocks[1] + 3) - 1)) {
 						//startGame(&j, &k);
 						system("mode con cols=80 lines=25");
 						do chooseLevel(&j);
@@ -200,7 +243,7 @@ int main(int argc, char const *argv[]) {
 						draw();
 						printActionTips(0);
 					}
-					else if (i == 13) {
+					else if ((i == 1 && inputASCII == 13) || (i == 2 && clickPosition[1] == 2 * (mapSize[0] + mapMaxBlocks[1] + 2))) {
 						if (maps[j][k + 1][2][0][0] != 0) {
 							init(j, ++k);
 							mapAction[0] = j;
@@ -217,7 +260,7 @@ int main(int argc, char const *argv[]) {
 						}
 						else l = 1;
 					}
-					else if (i == 27) exit(EXIT_SUCCESS);
+					else if((i == 1 && inputASCII == 27) || (i == 2 && clickPosition[1] == 2 * (mapSize[0] + mapMaxBlocks[1] + 3))) exit(EXIT_SUCCESS);
 					else continue;
 					break;
 				}
@@ -230,17 +273,17 @@ int main(int argc, char const *argv[]) {
 			}
 			else printActionTips(0);
 		}
-		else if (a == 48) {
+		else if (i == 1 && (inputASCII == 48 || inputASCII == 96)) {
 			srand((unsigned int)getpid());
 			l = rand() % (sizeof(maps) / sizeof(maps[0]));
 			init(l, rand() % (sizeof(maps[l]) / sizeof(maps[l][0])));
 			draw();
 		}
-		else if (a == 49) {
+		else if (i == 1 && (inputASCII == 49 || inputASCII == 97)) {
 			randomPointer();
 			draw();
 		}
-		else if (a == 50) {
+		else if (i == 1 && (inputASCII == 50 || inputASCII == 98)) {
 			changeKey();
 			draw();
 			//printf("%d\n", check());
@@ -249,7 +292,7 @@ int main(int argc, char const *argv[]) {
 				break;
 			}
 		}
-		else if (a == 51) {
+		else if (i == 1 && (inputASCII == 51 || inputASCII == 99)) {
 			randomMap();
 			draw();
 		}
