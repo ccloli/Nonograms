@@ -1,4 +1,2 @@
-*.exe
 *.sublime-*
-ANSI
-UTF-8
+GameData.txt
